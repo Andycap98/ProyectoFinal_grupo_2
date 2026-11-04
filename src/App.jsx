@@ -23,7 +23,7 @@ export default App;
 */
 
 import { useState } from "react";
-import JuegoComida from "./JuegoComida";
+import JuegoComida from "./components/JuegoComida";
 
 function App() {
 

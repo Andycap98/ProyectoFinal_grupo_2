@@ -1,8 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
+import JuegoComida from "./components/JuegoComida";
 
 import Login from "./components/Login";
 
-
+function finalizarJuegoComida(puntaje) {
+  console.log("Puntaje del Juego 1:", puntaje);
+}
 const router = createBrowserRouter([
   {
     path: "/",
@@ -10,7 +13,7 @@ const router = createBrowserRouter([
   },
   {
   path: "/juego-comida",
-  element: <h1>¡Hora de Comer!</h1>,
+ element: <JuegoComida onFinalizar={finalizarJuegoComida} />,
 },
 {
   path: "/juego-intruso",
