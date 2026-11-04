@@ -1,4 +1,4 @@
-import Login from './components/Login';
+/*import Login from './components/Login';
 import { useState } from 'react';
 import './App.css';
 
@@ -19,4 +19,34 @@ return (
   </>
 );
 }
+export default App;
+*/
+
+import { useState } from "react";
+import JuegoComida from "./JuegoComida";
+
+function App() {
+
+  const [puntajeFinal, setPuntajeFinal] = useState(null);
+
+  const finalizarJuego = (puntaje) => {
+    setPuntajeFinal(puntaje);
+  };
+
+  return (
+    <div>
+
+      <JuegoComida onFinalizar={finalizarJuego} />
+
+      {puntajeFinal !== null && (
+        <h3 className="text-center mt-3">
+          Resultado recibido por App: {puntajeFinal} puntos
+        </h3>
+      )}
+
+    </div>
+  );
+
+}
+
 export default App;
