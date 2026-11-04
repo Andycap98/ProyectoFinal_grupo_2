@@ -1,52 +1,42 @@
-/*import Login from './components/Login';
-import { useState } from 'react';
-import './App.css';
-
-function App() {
-  const [nombreJugador, setNombreJugador] = useState("");
-  const [pantalla, setPantalla] = useState("login");
-  const iniciarJuego = (nombre) => {
-  setNombreJugador(nombre);
-  setPantalla("juegoComida");
-};
-return (
-  <>
-    {pantalla === "login" ? (
-      <Login onComenzar={iniciarJuego} />
-    ) : (
-      <h1>¡Hora de Comer!</h1>
-    )}
-  </>
-);
-}
-export default App;
-*/
 
 import { useState } from "react";
 import JuegoComida from "./components/JuegoComida";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function App() {
 
   const [puntajeFinal, setPuntajeFinal] = useState(null);
+  const [puntajeJuego1, setPuntajeJuego1] = useState(0);
+  const [puntajeJuego2, setPuntajeJuego2] = useState(0);
+  const [nombreJugador, setNombreJugador] = useState("");
+  console.log("Nombre del jugador:", nombreJugador);
+  const navigate = useNavigate();
 
   const finalizarJuego = (puntaje) => {
     setPuntajeFinal(puntaje);
   };
-
-  return (
-    <div>
-
-      <JuegoComida onFinalizar={finalizarJuego} />
-
-      {puntajeFinal !== null && (
-        <h3 className="text-center mt-3">
-          Resultado recibido por App: {puntajeFinal} puntos
-        </h3>
-      )}
-
-    </div>
-  );
-
+  const terminarJuego1 = (puntaje) => {
+  setPuntajeJuego1(puntaje);
+  navigate("/juego-intruso");
+};
+const terminarJuego2 = (puntaje) => {
+  setPuntajeJuego2(puntaje);
+  navigate("/resultados");
+};
+return (
+  <div>
+    <Outlet
+      context={{
+        terminarJuego1,
+        terminarJuego2,
+        nombreJugador,
+        setNombreJugador,
+        puntajeJuego1,
+        puntajeJuego2
+      }}
+    />
+  </div>
+);
 }
 
 export default App;
