@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function Login({ onComenzar })  {
     const [nombre, setNombre] = useState("");
-    const navigate = useNavigate();
+  const { setNombreJugador } = useOutletContext();
+  const navigate = useNavigate();
     const handleComenzar = () => {
   if (nombre.trim() === "") {
     alert("Por favor, ingresá tu nombre");
     return;
   }
-
+ setNombreJugador(nombre.trim());
   navigate("/juego-comida");
 };
   return (
