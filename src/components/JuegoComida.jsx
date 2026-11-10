@@ -1,45 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { obtenerAnimalesComida } from "../services/juegosService";
 
 function JuegoComida({ onFinalizar }) {
 
-  // Array con los animales, sus opciones y sus respuestas correctas
-  const animales = [
-    {
-      animal: "Vaca",
-      imagen: "🐄",
-      opciones: ["Pasto", "Carne", "Banana"],
-      correcta: "Pasto"
-    },
-    {
-      animal: "Gallina",
-      imagen: "🐔",
-      opciones: ["Maíz", "Pasto", "Pescado"],
-      correcta: "Maíz"
-    },
-    {
-      animal: "Chancho",
-      imagen: "🐷",
-      opciones: [
-        "Todo lo que encuentra",
-        "Solo Pasto",
-        "Solo Carne"
-      ],
-      correcta: "Todo lo que encuentra"
-    },
-    {
-      animal: "Oveja",
-      imagen: "🐑",
-      opciones: ["Pasto", "Hamburguesa", "Pizza"],
-      correcta: "Pasto"
-    },
-    {
-      animal: "Caballo",
-      imagen: "🐴",
-      opciones: ["Pasto y Zanahoria", "Pollo", "Helado"],
-      correcta: "Pasto y Zanahoria"
-    }
-  ];
+  const [animales, setAnimales] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
+useEffect(() => {
+  const cargarAnimales = async () => {
+    try {
+      setCargando(true);
+      setError("");
+
+      const datos = await obtenerAnimalesComida();
+      setAnimales(datos);
+
+    } catch (error) {
+      console.error("Error al cargar los animales:", error);
+      setError("No se pudieron cargar los animales.");
+
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  cargarAnimales();
+}, []);
+ 
   // Estados del juego
   const [rondaActual, setRondaActual] = useState(0);
   const [puntaje, setPuntaje] = useState(0);
@@ -94,7 +82,25 @@ function JuegoComida({ onFinalizar }) {
     }, 1500);
 
   };
+ // Mientras Axios carga los animales
+if (cargando) {
+  return (
+    <div className="container text-center mt-5">
+      <h2>🐮 Cargando animales...</h2>
+      <p>¡Estamos preparando la comida de la granja!</p>
+    </div>
+  );
+}
 
+// Si ocurre un error o no se reciben animales
+if (error || animales.length === 0) {
+  return (
+    <div className="container text-center mt-5">
+      <h2>⚠️ No pudimos iniciar el juego</h2>
+      <p>{error || "No hay animales disponibles."}</p>
+    </div>
+  );
+}
   // Pantalla final
   if (terminado) {
     return (
