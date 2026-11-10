@@ -1,0 +1,37 @@
+
+[
+  {
+    "animal": "Vaca",
+    "imagen": "🐄",
+    "opciones": ["Pasto", "Carne", "Banana"],
+    "correcta": "Pasto"
+  },
+  {
+    "animal": "Gallina",
+    "imagen": "🐔",
+    "opciones": ["Maíz", "Pasto", "Pescado"],
+    "correcta": "Maíz"
+  },
+  {
+    "animal": "Chancho",
+    "imagen": "🐷",
+    "opciones": [
+      "Todo lo que encuentra",
+      "Solo Pasto",
+      "Solo Carne"
+    ],
+    "correcta": "Todo lo que encuentra"
+  },
+  {
+    "animal": "Oveja",
+    "imagen": "🐑",
+    "opciones": ["Pasto", "Hamburguesa", "Pizza"],
+    "correcta": "Pasto"
+  },
+  {
+    "animal": "Caballo",
+    "imagen": "🐴",
+    "opciones": ["Pasto y Zanahoria", "Pollo", "Helado"],
+    "correcta": "Pasto y Zanahoria"
+  }
+]
