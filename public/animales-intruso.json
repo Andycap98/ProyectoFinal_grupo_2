@@ -1,0 +1,42 @@
+ [
+  {
+    "animales": [
+      { "nombre": "Perro", "imagen": "/animales/perro.png" },
+      { "nombre": "Gato", "imagen": "/animales/gato.png" },
+      { "nombre": "León", "imagen": "/animales/leon.png" }
+    ],
+    "intruso": "León"
+  },
+  {
+    "animales": [
+      { "nombre": "Vaca", "imagen": "/animales/vaca.png" },
+      { "nombre": "Oveja", "imagen": "/animales/oveja.png" },
+      { "nombre": "Cocodrilo", "imagen": "/animales/cocodrilo.png" }
+    ],
+    "intruso": "Cocodrilo"
+  },
+  {
+    "animales": [
+      { "nombre": "Gallina", "imagen": "/animales/gallina.png" },
+      { "nombre": "Chancho", "imagen": "/animales/chancho.png" },
+      { "nombre": "Elefante", "imagen": "/animales/elefante.png" }
+    ],
+    "intruso": "Elefante"
+  },
+  {
+    "animales": [
+      { "nombre": "Caballo", "imagen": "/animales/caballo.png" },
+      { "nombre": "Vaca", "imagen": "/animales/vaca.png" },
+      { "nombre": "Tiburón", "imagen": "/animales/tiburon.png" }
+    ],
+    "intruso": "Tiburón"
+  },
+  {
+    "animales": [
+      { "nombre": "Oveja", "imagen": "/animales/oveja.png" },
+      { "nombre": "Perro", "imagen": "/animales/perro.png" },
+      { "nombre": "Pingüino", "imagen": "/animales/pinguino.png" }
+    ],
+    "intruso": "Pingüino"
+  },
+]
