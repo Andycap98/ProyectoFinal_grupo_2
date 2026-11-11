@@ -30,7 +30,7 @@ function JuegoIntruso({ onFinalizar }) {
   if (cargando) {
     return (
       <div className="container text-center mt-5">
-        <h2>🐾 Cargando el juego...</h2>
+        <h2> Cargando el juego...</h2>
         <p>¡Estamos buscando al intruso de la granja!</p>
       </div>
     );
@@ -39,7 +39,7 @@ function JuegoIntruso({ onFinalizar }) {
   if (error || rondas.length === 0) {
     return (
       <div className="container text-center mt-5">
-        <h2>⚠️ No pudimos iniciar el juego</h2>
+        <h2> No pudimos iniciar el juego</h2>
         <p>{error || "No hay rondas disponibles."}</p>
       </div>
     );
