@@ -1,44 +1,16 @@
 
-import { createBrowserRouter, useOutletContext } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import Login from "./components/Login";
-import JuegoComida from "./components/JuegoComida";
-import JuegoIntruso from "./components/JuegoIntruso";
-import Resultados from "./components/Resultados";
 
-// Pantalla 2: Juego de Gabriel
-function PantallaJuegoComida() {
-  const { terminarJuego1 } = useOutletContext();
+import {
+  PantallaJuegoComida,
+  PantallaJuegoIntruso,
+  PantallaResultados,
+} from "./PantallasJuegos";
 
-  return <JuegoComida onFinalizar={terminarJuego1} />;
-}
-
-// Pantalla 3: Juego de Leandro
-function PantallaJuegoIntruso() {
-  const { terminarJuego2 } = useOutletContext();
-
-  return <JuegoIntruso onFinalizar={terminarJuego2} />;
-}
-
-// Pantalla 4: Resultados de Nicolas
-function PantallaResultados() {
-  const {
-    nombreJugador,
-    puntajeJuego1,
-    puntajeJuego2
-  } = useOutletContext();
-
-  return (
-    <Resultados
-      nombre={nombreJugador}
-      puntajeComida={puntajeJuego1}
-      puntajeIntruso={puntajeJuego2}
-    />
-  );
-}
-
-// Configuracion de las cuatro pantallas
+// Configuración de las cuatro pantallas
 const router = createBrowserRouter([
   {
     path: "/",
@@ -65,3 +37,4 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
+
