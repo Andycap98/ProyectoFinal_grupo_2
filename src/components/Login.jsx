@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-function Login({ onComenzar })  {
+function Login()  {
     const [nombre, setNombre] = useState("");
   const { setNombreJugador } = useOutletContext();
   const navigate = useNavigate();

@@ -1,54 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { obtenerRondasIntruso } from "../services/juegosService";
 import "./JuegoIntruso.css";
 
-const rondas = [
-  {
-    animales: [
-      { nombre: "Perro", imagen: "/animales/perro.png" },
-      { nombre: "Gato", imagen: "/animales/gato.png" },
-      { nombre: "León", imagen: "/animales/leon.png" },
-    ],
-    intruso: "León",
-  },
-  {
-    animales: [
-      { nombre: "Vaca", imagen: "/animales/vaca.png" },
-      { nombre: "Oveja", imagen: "/animales/oveja.png" },
-      { nombre: "Cocodrilo", imagen: "/animales/cocodrilo.png" },
-    ],
-    intruso: "Cocodrilo",
-  },
-  {
-    animales: [
-      { nombre: "Gallina", imagen: "/animales/gallina.png" },
-      { nombre: "Chancho", imagen: "/animales/chancho.png" },
-      { nombre: "Elefante", imagen: "/animales/elefante.png" },
-    ],
-    intruso: "Elefante",
-  },
-  {
-    animales: [
-      { nombre: "Caballo", imagen: "/animales/caballo.png" },
-      { nombre: "Vaca", imagen: "/animales/vaca.png" },
-      { nombre: "Tiburón", imagen: "/animales/tiburon.png" },
-    ],
-    intruso: "Tiburón",
-  },
-  {
-    animales: [
-      { nombre: "Oveja", imagen: "/animales/oveja.png" },
-      { nombre: "Perro", imagen: "/animales/perro.png" },
-      { nombre: "Pingüino", imagen: "/animales/pinguino.png" },
-    ],
-    intruso: "Pingüino",
-  },
-];
-
 function JuegoIntruso({ onFinalizar }) {
+  const [rondas, setRondas] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
+
   const [ronda, setRonda] = useState(0);
   const [puntaje, setPuntaje] = useState(0);
-  // Nombre del animal que eligió el niño en esta ronda (null = todavía no eligió)
   const [seleccion, setSeleccion] = useState(null);
+
+  useEffect(() => {
+    const cargarRondas = async () => {
+      try {
+        const datos = await obtenerRondasIntruso();
+        setRondas(datos);
+      } catch (error) {
+        console.error("Error al cargar las rondas:", error);
+        setError("No se pudieron cargar las rondas.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarRondas();
+  }, []);
+
+  if (cargando) {
+    return (
+      <div className="container text-center mt-5">
+        <h2>🐾 Cargando el juego...</h2>
+        <p>¡Estamos buscando al intruso de la granja!</p>
+      </div>
+    );
+  }
+
+  if (error || rondas.length === 0) {
+    return (
+      <div className="container text-center mt-5">
+        <h2>⚠️ No pudimos iniciar el juego</h2>
+        <p>{error || "No hay rondas disponibles."}</p>
+      </div>
+    );
+  }
 
   const rondaActual = rondas[ronda];
   const respondida = seleccion !== null;

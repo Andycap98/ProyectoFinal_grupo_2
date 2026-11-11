@@ -6,3 +6,9 @@ export async function obtenerAnimalesComida() {
 
   return respuesta.data;
 }
+
+export async function obtenerRondasIntruso() {
+  const respuesta = await axios.get("/animales-intruso.json");
+ 
+  return respuesta.data;
+}
