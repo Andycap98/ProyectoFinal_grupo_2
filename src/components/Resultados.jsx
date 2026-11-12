@@ -16,8 +16,9 @@ function Resultados({
 }) {
   // Total de ambos juegos (máximo 100)
   const puntajeTotal = puntajeComida + puntajeIntruso;
+  let mensaje;
 
-  if (puntajeTotal == 100) {
+  if (puntajeTotal === 100) {
     mensaje = "¡¡¡Lo hiciste perfecto!!!";
   } else if (puntajeTotal >= 90) {
     mensaje = "¡Excelente!";
@@ -64,9 +65,21 @@ function Resultados({
                   {puntajeTotal} / {PUNTAJE_MAXIMO_TOTAL}
                 </p>
               </div>
+              
+              <div className="alert alert-success mt-3">
+                {mensaje}
+              </div>
+
+              <button
+                type="button" 
+                className="btn btn-success btn-lg mt-3"
+                onClick={() => onReiniciar?.()
+              }>
+                Jugar de nuevo
+              </button>
             </div>
 
-            {/* Próximas entregas: mensaje de felicitación y botón "Jugar de nuevo" (onReiniciar) */}
+
           </div>
         </div>
       </div>

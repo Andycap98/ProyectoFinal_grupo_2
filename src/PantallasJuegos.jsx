@@ -25,6 +25,7 @@ export function PantallaResultados() {
     nombreJugador,
     puntajeJuego1,
     puntajeJuego2,
+    reiniciarPartida,
   } = useOutletContext();
 
   return (
@@ -32,6 +33,7 @@ export function PantallaResultados() {
       nombre={nombreJugador}
       puntajeComida={puntajeJuego1}
       puntajeIntruso={puntajeJuego2}
+      onReiniciar={reiniciarPartida}
     />
   );
 }
