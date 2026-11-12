@@ -2,11 +2,17 @@
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
+import { useAuth } from "./Context/useAuth";
+
+
 function App() {
   // Estados compartidos de la aplicación
   const [puntajeJuego1, setPuntajeJuego1] = useState(0);
   const [puntajeJuego2, setPuntajeJuego2] = useState(0);
   const [nombreJugador, setNombreJugador] = useState("");
+
+const { cerrarSesion } = useAuth();
+
 
   const navigate = useNavigate();
 
@@ -28,7 +34,7 @@ function App() {
     setPuntajeJuego2(0);
     setNombreJugador("");
 
-    navigate("/");
+    navigate("/login-alumno");
   };
 
   return (
