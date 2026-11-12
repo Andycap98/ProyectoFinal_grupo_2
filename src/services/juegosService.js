@@ -9,6 +9,6 @@ export async function obtenerAnimalesComida() {
 
 export async function obtenerRondasIntruso() {
   const respuesta = await axios.get("/animales-intruso.json");
- 
+
   return respuesta.data;
 }

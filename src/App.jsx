@@ -22,6 +22,15 @@ function App() {
     navigate("/resultados");
   };
 
+   // Reinicia la partida y vuelve al Login
+  const reiniciarPartida = () => {
+    setPuntajeJuego1(0);
+    setPuntajeJuego2(0);
+    setNombreJugador("");
+
+    navigate("/");
+  };
+
   return (
     <div>
       <Outlet
@@ -32,6 +41,7 @@ function App() {
           setNombreJugador,
           puntajeJuego1,
           puntajeJuego2,
+          reiniciarPartida,
         }}
       />
     </div>
