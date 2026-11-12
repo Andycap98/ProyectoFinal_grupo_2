@@ -17,6 +17,20 @@ function Resultados({
   // Total de ambos juegos (máximo 100)
   const puntajeTotal = puntajeComida + puntajeIntruso;
 
+  if (puntajeTotal == 100) {
+    mensaje = "¡¡¡Lo hiciste perfecto!!!";
+  } else if (puntajeTotal >= 90) {
+    mensaje = "¡Excelente!";
+  } else if (puntajeTotal >= 70) {
+    mensaje = "¡Muy bien!";
+  } else if (puntajeTotal >= 50) {
+    mensaje = "Sigue practicando.";
+  } else if (puntajeTotal >= 10) {
+    mensaje = "No lo estas haciendo muy bien...";
+  } else {
+    mensaje = "Lamentablemente, has fallado por completo";
+  }
+
   return (
     <div className="container py-4">
       <div className="row justify-content-center">
