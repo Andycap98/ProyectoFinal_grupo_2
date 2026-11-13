@@ -1,38 +1,75 @@
-import { useState } from 'react';
-import { useNavigate, useOutletContext } from "react-router-dom";
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/useAuth";
+import { login } from "../services/authService";
 
-function Login()  {
-    const [nombre, setNombre] = useState("");
-    const { setNombreJugador } = useOutletContext();
-    const navigate = useNavigate();
+const Login = () => {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-   const { iniciarSesion } = useAuth();
+  const { iniciarSesion } = useAuth();
+  const navigate = useNavigate();
 
-    const handleComenzar = () => {
-  if (nombre.trim() === "") {
-    alert("Por favor, ingresá tu nombre");
-    return;
-  }
- setNombreJugador(nombre.trim());
-  
-  iniciarSesion(nombre.trim(), "alumno");
+  const gestionarLogin = async (e) => {
+    e.preventDefault();
+    setError("");
 
-  navigate("/juego-comida");
-};
+    if (!user.trim() || !password) {
+      setError("Ingresá tu correo y contraseña");
+      return;
+    }
+
+    try {
+      const usuarioValidado = await login(user.trim(), password);
+
+      if (!usuarioValidado) {
+        setError("Usuario o contraseña incorrectos");
+        return;
+      }
+
+      iniciarSesion(usuarioValidado);
+
+      if (usuarioValidado.rol === "profesor") {
+        navigate("/profesor");
+      } else if (usuarioValidado.rol === "alumno") {
+        navigate("/juego-comida");
+      } else {
+        setError("El usuario no tiene un rol válido");
+      }
+    } catch {
+      setError("No se pudieron cargar los usuarios");
+    }
+  };
+
   return (
-    <div>
-      <h1>Aventura en la Granja</h1>
+    <form onSubmit={gestionarLogin}>
+      <h2>Ingresar a la granja</h2>
+
+      <label htmlFor="user">Correo electrónico</label>
       <input
-  type="text"
-  placeholder="Ingresá tu nombre"
-  value={nombre}
-onChange={(e) => setNombre(e.target.value)}
-/>
-<button onClick={handleComenzar}>Comenzar</button>
-    </div>
+        id="user"
+        type="email"
+        value={user}
+        onChange={(e) => setUser(e.target.value)}
+        required
+      />
+
+      <label htmlFor="password">Contraseña</label>
+      <input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+
+      {error && <p role="alert">{error}</p>}
+
+      <button type="submit">Ingresar</button>
+    </form>
   );
-}
+};
 
 export default Login;

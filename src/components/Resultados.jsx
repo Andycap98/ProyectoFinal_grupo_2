@@ -1,6 +1,6 @@
 // Pantalla 4: muestra los resultados del niño en ambos juegos.
 // Props:
-//   nombre         -> nombre del jugador (viene del Login)
+//  // nombre -> nombre del jugador autenticado (viene de AuthContext)
 //   puntajeComida  -> puntaje del Juego 1: ¡Hora de Comer! (0 a 50)
 //   puntajeIntruso -> puntaje del Juego 2: El Intruso de la Granja (0 a 50)
 //   onReiniciar    -> función para volver al Login (se conecta en la próxima entrega)
@@ -8,12 +8,14 @@
 const PUNTAJE_MAXIMO_JUEGO = 50;
 const PUNTAJE_MAXIMO_TOTAL = PUNTAJE_MAXIMO_JUEGO * 2; // 100
 
-function Resultados({
+
+const Resultados = ({
   nombre = "Jugador de prueba",
   puntajeComida = 40,
   puntajeIntruso = 30,
   onReiniciar,
-}) {
+}) => 
+ {
   // Total de ambos juegos (máximo 100)
   const puntajeTotal = puntajeComida + puntajeIntruso;
   let mensaje;

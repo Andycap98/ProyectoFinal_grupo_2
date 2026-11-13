@@ -9,14 +9,14 @@ const [usuario, setUsuario] = useState(() => {
   return usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
 });
 
-const iniciarSesion = (nombre, rol) => {
-  const nuevoUsuario = {
-    nombre: nombre,
-    rol: rol,
-  };
 
-  setUsuario(nuevoUsuario);
-  sessionStorage.setItem("usuario", JSON.stringify(nuevoUsuario));
+const iniciarSesion = (usuarioValidado) => {
+  setUsuario(usuarioValidado);
+
+  sessionStorage.setItem(
+    "usuario",
+    JSON.stringify(usuarioValidado)
+  );
 };
 
 
