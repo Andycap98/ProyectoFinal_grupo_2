@@ -6,21 +6,21 @@ import JuegoIntruso from "./components/JuegoIntruso";
 import Resultados from "./components/Resultados";
 
 // Pantalla 2: Juego de comida
-export function PantallaJuegoComida() {
+export const PantallaJuegoComida = () => {
   const { terminarJuego1 } = useOutletContext();
 
   return <JuegoComida onFinalizar={terminarJuego1} />;
-}
+};
 
 // Pantalla 3: Juego del intruso
-export function PantallaJuegoIntruso() {
+export const PantallaJuegoIntruso = () => {
   const { terminarJuego2 } = useOutletContext();
 
   return <JuegoIntruso onFinalizar={terminarJuego2} />;
-}
+};
 
 // Pantalla 4: Resultados
-export function PantallaResultados() {
+export const PantallaResultados = () => {
   const {
     nombreJugador,
     puntajeJuego1,
@@ -36,4 +36,5 @@ export function PantallaResultados() {
       onReiniciar={reiniciarPartida}
     />
   );
-}
+};
+

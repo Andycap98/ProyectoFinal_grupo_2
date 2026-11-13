@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { obtenerRondasIntruso } from "../services/juegosService";
 import "./JuegoIntruso.css";
 
-function JuegoIntruso({ onFinalizar }) {
+
+const JuegoIntruso = ({ onFinalizar }) => {
+
   const [rondas, setRondas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
@@ -10,6 +12,7 @@ function JuegoIntruso({ onFinalizar }) {
   const [ronda, setRonda] = useState(0);
   const [puntaje, setPuntaje] = useState(0);
   const [seleccion, setSeleccion] = useState(null);
+  const finalizadoRef = useRef(false);
 
   useEffect(() => {
     const cargarRondas = async () => {
@@ -59,15 +62,18 @@ function JuegoIntruso({ onFinalizar }) {
     }
   };
 
-  const handleSiguiente = () => {
-    if (esUltimaRonda) {
-      // Cuando se toca este botón, "puntaje" ya incluye la última respuesta
-      onFinalizar(puntaje);
-      return;
-    }
-    setRonda(ronda + 1);
-    setSeleccion(null); // la ronda nueva arranca sin respuesta
-  };
+const handleSiguiente = () => {
+  if (finalizadoRef.current) return;
+
+  if (esUltimaRonda) {
+    finalizadoRef.current = true;
+    onFinalizar(puntaje);
+    return;
+  }
+
+  setRonda(ronda + 1);
+  setSeleccion(null);
+};
 
   // Una vez respondida la ronda, el intruso se pinta de rojo y los demás de verde
   const claseCirculo = (nombre) => {
@@ -124,7 +130,8 @@ function JuegoIntruso({ onFinalizar }) {
         <p>Haz clic en el animal que NO pertenece a la granja</p>
       )}
     </div>
+ 
   );
-}
+};
 
 export default JuegoIntruso;

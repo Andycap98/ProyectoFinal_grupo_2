@@ -1,14 +1,9 @@
-
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import Login from "./components/Login";
-
-import LoginProfesor from "./components/LoginProfesor";
 import DashboardProfesor from "./components/DashboardProfesor";
-import RutaProfesor from "./components/RutaProfesor";
-import Bienvenida from "./components/Bienvenida";
-
+import ProtectorRuta from "./components/ProtectorRuta";
 
 import {
   PantallaJuegoComida,
@@ -16,52 +11,55 @@ import {
   PantallaResultados,
 } from "./PantallasJuegos";
 
-// Configuración de las cuatro pantallas
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      
-{
-  index: true,
-  element: <Bienvenida />,
-},
-{
-  path: "login-alumno",
-  element: <Login />,
-},
-{
-  path: "login-profesor",
-  element: <LoginProfesor />,
-},
-
+      {
+        index: true,
+        element: <Login />,
+      },
+      {
+        path: "login-alumno",
+        element: <Login />,
+      },
+      {
+        path: "login-profesor",
+        element: <Login />,
+      },
       {
         path: "juego-comida",
-        element: <PantallaJuegoComida />,
+        element: (
+          <ProtectorRuta rolRequerido="alumno">
+            <PantallaJuegoComida />
+          </ProtectorRuta>
+        ),
       },
       {
         path: "juego-intruso",
-        element: <PantallaJuegoIntruso />,
+        element: (
+          <ProtectorRuta rolRequerido="alumno">
+            <PantallaJuegoIntruso />
+          </ProtectorRuta>
+        ),
       },
       {
         path: "resultados",
-        element: <PantallaResultados />,
+        element: (
+          <ProtectorRuta rolRequerido="alumno">
+            <PantallaResultados />
+          </ProtectorRuta>
+        ),
       },
-
-{
-  path: "login-profesor",
-  element: <LoginProfesor />,
-},
-{
-  path: "profesor",
-  element: (
-    <RutaProfesor>
-      <DashboardProfesor />
-    </RutaProfesor>
-  ),
-},
-
+      {
+        path: "profesor",
+        element: (
+          <ProtectorRuta rolRequerido="profesor">
+            <DashboardProfesor />
+          </ProtectorRuta>
+        ),
+      },
     ],
   },
 ]);

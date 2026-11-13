@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { obtenerAnimalesComida } from "../services/juegosService";
 
-function JuegoComida({ onFinalizar }) {
+
+const JuegoComida = ({ onFinalizar }) => {
 
   const [animales, setAnimales] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -183,7 +184,6 @@ if (error || animales.length === 0) {
     </div>
 
   );
-
-}
+};
 
 export default JuegoComida;
