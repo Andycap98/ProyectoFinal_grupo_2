@@ -1,0 +1,131 @@
+.resultados-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #dff3ff 0%, #dff3ff 58%, #bfe3a8 58%, #9fd089 100%);
+  display: flex;
+  align-items: center;
+}
+
+.resultados-card {
+  background: #f7eed4;
+  border: 3px solid #e2c98f;
+  border-radius: 28px;
+  padding: 32px 28px;
+  box-shadow: 8px 8px 0 #e8d8ae, 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.resultados-header {
+  margin-bottom: 20px;
+}
+
+.resultados-titulo {
+  color: #356a3a;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.resultados-subtitulo {
+  color: #7a6447;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.jugador-nombre {
+  color: #4f5d2f;
+  font-weight: 700;
+}
+
+.resultado-box {
+  background: #fff8e8;
+  border: 2px solid #e4d3a7;
+  border-radius: 20px;
+  padding: 22px 16px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.total-box {
+  background: #eef8df;
+  border-color: #bfd48d;
+}
+
+.resultado-icono {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.resultado-box h3 {
+  color: #355e3b;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.resultado-box p {
+  color: #7b6a4a;
+  margin-bottom: 14px;
+}
+
+.resultado-puntaje {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f3f24;
+}
+
+.mensaje-final {
+  margin-top: 10px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.mensaje-excelente {
+  background: #dff5d8;
+  color: #2f6b2f;
+  border: 2px solid #9dd39a;
+}
+
+.mensaje-bueno {
+  background: #fff4cc;
+  color: #8a6a16;
+  border: 2px solid #e6cf76;
+}
+
+.mensaje-mejorar {
+  background: #ffe1dc;
+  color: #9a3f35;
+  border: 2px solid #e5a8a0;
+}
+
+.resultados-btn {
+  border-radius: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 700;
+  box-shadow: 0 5px 0 #3e7e44;
+}
+
+.resultados-btn:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .resultados-card {
+    padding: 24px 18px;
+  }
+
+  .resultados-titulo {
+    font-size: 1.8rem;
+  }
+
+  .jugador-nombre {
+    font-size: 1.4rem;
+  }
+
+  .resultado-puntaje {
+    font-size: 1.3rem;
+  }
+}

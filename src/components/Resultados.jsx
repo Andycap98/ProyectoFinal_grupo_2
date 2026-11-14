@@ -1,92 +1,101 @@
-// Pantalla 4: muestra los resultados del niño en ambos juegos.
-// Props:
-//  // nombre -> nombre del jugador autenticado (viene de AuthContext)
-//   puntajeComida  -> puntaje del Juego 1: ¡Hora de Comer! (0 a 50)
-//   puntajeIntruso -> puntaje del Juego 2: El Intruso de la Granja (0 a 50)
-//   onReiniciar    -> función para volver al Login (se conecta en la próxima entrega)
+import "./Resultados.css";
 
 const PUNTAJE_MAXIMO_JUEGO = 50;
-const PUNTAJE_MAXIMO_TOTAL = PUNTAJE_MAXIMO_JUEGO * 2; // 100
-
+const PUNTAJE_MAXIMO_TOTAL = PUNTAJE_MAXIMO_JUEGO * 2;
 
 const Resultados = ({
-  nombre = "Jugador de prueba",
-  puntajeComida = 40,
-  puntajeIntruso = 30,
+  nombre = "Jugador",
+  puntajeComida = 0,
+  puntajeIntruso = 0,
   onReiniciar,
-}) => 
- {
-  // Total de ambos juegos (máximo 100)
+}) => {
   const puntajeTotal = puntajeComida + puntajeIntruso;
-  let mensaje;
 
-  if (puntajeTotal === 100) {
-    mensaje = "¡¡¡Lo hiciste perfecto!!!";
-  } else if (puntajeTotal >= 90) {
-    mensaje = "¡Excelente!";
-  } else if (puntajeTotal >= 70) {
-    mensaje = "¡Muy bien!";
-  } else if (puntajeTotal >= 50) {
-    mensaje = "Sigue practicando.";
-  } else if (puntajeTotal >= 10) {
-    mensaje = "No lo estas haciendo muy bien...";
-  } else {
-    mensaje = "Lamentablemente, has fallado por completo";
-  }
+  const obtenerMensaje = () => {
+  if (puntajeTotal === 100) return "🌟 ¡PERFECTO!";
+  if (puntajeTotal >= 90) return "🎉 ¡EXCELENTE!";
+  if (puntajeTotal >= 70) return "👏 ¡MUY BIEN!";
+  if (puntajeTotal >= 50) return "🌻 ¡BUEN TRABAJO!";
+  return "💚 ¡VOLVAMOS A JUGAR!";
+};
+
+  const obtenerClaseMensaje = () => {
+    if (puntajeTotal >= 90) return "mensaje-excelente";
+    if (puntajeTotal >= 50) return "mensaje-bueno";
+    return "mensaje-mejorar";
+  };
 
   return (
-    <div className="container py-4">
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-8 col-lg-6">
-          <div className="card shadow text-center">
-            <div className="card-header bg-success text-white">
-              <h1 className="h3 mb-0">🐮 Aventura en la Granja</h1>
-            </div>
-
-            <div className="card-body">
-              <h2 className="h4 mb-4">¡Resultados de {nombre}!</h2>
-
-              <ul className="list-group mb-4">
-                <li className="list-group-item d-flex justify-content-between align-items-center">
-                  <span>🍽️ ¡Hora de Comer!</span>
-                  <span className="badge bg-primary rounded-pill fs-6">
-                    {puntajeComida} / {PUNTAJE_MAXIMO_JUEGO}
-                  </span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center">
-                  <span>🔍 El Intruso de la Granja</span>
-                  <span className="badge bg-primary rounded-pill fs-6">
-                    {puntajeIntruso} / {PUNTAJE_MAXIMO_JUEGO}
-                  </span>
-                </li>
-              </ul>
-
-              <div className="alert alert-warning mb-0">
-                <p className="mb-1 fw-bold">Puntaje total</p>
-                <p className="display-5 fw-bold mb-0">
-                  {puntajeTotal} / {PUNTAJE_MAXIMO_TOTAL}
+    <div className="resultados-page">
+      <div className="container py-5">
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-10 col-lg-8">
+            <div className="resultados-card">
+              <div className="resultados-header text-center">
+                <h1 className="resultados-titulo">🐮 Aventura en la Granja</h1>
+                <p className="resultados-subtitulo">
+                  ¡Terminaste tu aventura!
                 </p>
               </div>
-              
-              <div className="alert alert-success mt-3">
-                {mensaje}
+
+              <div className="text-center mb-4">
+                <h2 className="jugador-nombre">Resultados de {nombre}</h2>
               </div>
 
-              <button
-                type="button" 
-                className="btn btn-success btn-lg mt-3"
-                onClick={() => onReiniciar?.()
-              }>
-                Jugar de nuevo
-              </button>
+              <div className="row g-3 mb-4">
+                <div className="col-12 col-md-4">
+                  <div className="resultado-box">
+                    <span className="resultado-icono">🍽️</span>
+                    <h3>Juego 1</h3>
+                    <p>¡Hora de Comer!</p>
+                    <div className="resultado-puntaje">
+                      {puntajeComida} / {PUNTAJE_MAXIMO_JUEGO}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-12 col-md-4">
+                  <div className="resultado-box">
+                    <span className="resultado-icono">🔍</span>
+                    <h3>Juego 2</h3>
+                    <p>El Intruso de la Granja</p>
+                    <div className="resultado-puntaje">
+                      {puntajeIntruso} / {PUNTAJE_MAXIMO_JUEGO}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-12 col-md-4">
+                  <div className="resultado-box total-box">
+                    <span className="resultado-icono">⭐</span>
+                    <h3>Total</h3>
+                    <p>Puntaje final</p>
+                    <div className="resultado-puntaje">
+                      {puntajeTotal} / {PUNTAJE_MAXIMO_TOTAL}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`mensaje-final ${obtenerClaseMensaje()}`}>
+                {obtenerMensaje()}
+              </div>
+
+              <div className="text-center mt-4">
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg px-4 resultados-btn"
+                  onClick={onReiniciar}
+                >
+                  Jugar de nuevo
+                </button>
+              </div>
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Resultados;

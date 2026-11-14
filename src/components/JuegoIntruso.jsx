@@ -127,7 +127,7 @@ const handleSiguiente = () => {
           </button>
         </>
       ) : (
-        <p>Haz clic en el animal que NO pertenece a la granja</p>
+        <p>🐾 TOCÁ EL ANIMAL QUE NO VA</p>
       )}
     </div>
  

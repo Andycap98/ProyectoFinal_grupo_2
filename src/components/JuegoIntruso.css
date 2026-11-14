@@ -1,51 +1,107 @@
 .juego-intruso {
-  background-color: #fff8e1;
-  border-radius: 24px;
-  max-width: 800px;
+  font-family: "Fredoka", Arial, sans-serif;
+  background-color: #fff8e8;
+  border-radius: 28px;
+  padding: 30px;
+  border: 3px solid #ecd8a6;
 }
 
 .titulo-intruso {
-  color: #ef6c00;
+  font-size: 2.2rem;
   font-weight: 700;
+  color: #d96a00;
+  margin-bottom: 10px;
+}
+
+.juego-intruso p {
+  font-size: 1.4rem;
+  color: #4f4638;
+  font-weight: 500;
+}
+
+.juego-intruso strong {
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 10px;
+  color: #3b3328;
 }
 
 .circulo-animal {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   border: none;
-  padding: 0;
-  background-color: #ffe0b2;
+  background-color: #f9d9a5;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: transform 0.15s;
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.circulo-animal:hover:not(:disabled) {
+.circulo-animal:hover {
   transform: scale(1.05);
 }
 
-.circulo-animal:disabled {
-  cursor: default;
-}
-
 .circulo-animal img {
-  width: 110px;
-  height: 110px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
 }
 
-.circulo-granja {
-  background-color: #81c784;
+.circulo-intruso {
+  background-color: #f7a6a6;
 }
 
-.circulo-intruso {
-  background-color: #c62828;
+.circulo-granja {
+  background-color: #bde7b3;
 }
 
 .etiqueta-intruso {
-  color: #c62828;
+  margin-top: 8px;
+  font-size: 1.2rem;
   font-weight: 700;
+  color: #c0392b;
+}
+
+.juego-intruso .alert {
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+.juego-intruso .btn {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  .titulo-intruso {
+    font-size: 1.8rem;
+  }
+
+  .juego-intruso p {
+    font-size: 1.2rem;
+  }
+
+  .circulo-animal {
+    width: 120px;
+    height: 120px;
+  }
+
+  .circulo-animal img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .juego-intruso strong {
+    font-size: 1.2rem;
+  }
+
+  .juego-intruso .btn {
+    font-size: 1.2rem;
+  }
 }

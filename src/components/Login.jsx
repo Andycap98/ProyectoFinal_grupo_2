@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/useAuth";
 import { login } from "../services/authService";
+import "./Login.css";
 
 const Login = () => {
   const [user, setUser] = useState("");
@@ -43,33 +44,65 @@ const Login = () => {
     }
   };
 
-  return (
-    <form onSubmit={gestionarLogin}>
-      <h2>Ingresar a la granja</h2>
+ 
 
-      <label htmlFor="user">Correo electrónico</label>
-      <input
-        id="user"
-        type="email"
-        value={user}
-        onChange={(e) => setUser(e.target.value)}
-        required
-      />
+return (
+  <main className="login-granja">
+    <div className="granja-decoracion" aria-hidden="true">
+      <div className="nube nube-izquierda"></div>
+      <div className="nube nube-derecha"></div>
+      <div className="granero-papel">
+        <div className="techo-granero"></div>
+        <div className="puerta-granero"></div>
+      </div>
+      <div className="arbol-papel arbol-izquierdo"></div>
+      <div className="arbol-papel arbol-derecho"></div>
+    </div>
 
-      <label htmlFor="password">Contraseña</label>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+    <form className="login-papel" onSubmit={gestionarLogin}>
 
-      {error && <p role="alert">{error}</p>}
+      <h1>🐮 Aventura en la Granja</h1>
 
-      <button type="submit">Ingresar</button>
+      <p className="login-subtitulo">
+        ¡Bienvenido a nuestra granja de papel!
+        Ingresá para comenzar tu aventura.
+      </p>
+
+      <div className="login-campo">
+        <label htmlFor="user">Correo electrónico</label>
+        <input
+          id="user"
+          type="email"
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className="login-campo">
+        <label htmlFor="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+
+      {error && (
+        <p className="login-error" role="alert">
+          {error}
+        </p>
+      )}
+
+      <button className="login-boton" type="submit">
+        🌱 ¡Entrar a la granja!
+      </button>
     </form>
-  );
+  </main>
+);
+
 };
 
 export default Login;
