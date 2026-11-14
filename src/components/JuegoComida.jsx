@@ -1,5 +1,33 @@
 import { useState, useEffect } from "react";
 import { obtenerAnimalesComida } from "../services/juegosService";
+import "./JuegoComida.css";
+
+
+
+const imagenesAlimentos = {
+  "PASTO": "🌱",
+  "CARNE": "🥩",
+  "BANANA": "🍌",
+  "ZANAHORIA": "🥕",
+  "MAÍZ": "🌽",
+  "MANZANA": "🍎",
+  "PESCADO": "🐟",
+  "SEMILLAS": "🌻",
+  "TODO LO QUE ENCUENTRA": "🍎🥕🌽",
+  "SOLO PASTO": "🌱",
+  "SOLO CARNE": "🥩",
+  "PASTO Y ZANAHORIA": "🌱🥕",
+   "POLLO": "🍗",
+   "HELADO": "🍦",
+   "PIZZA": "🍕",
+  "HAMBURGUESA": "🍔",
+};
+
+const obtenerImagenAlimento = (alimento) => {
+  const nombre = alimento.trim().toUpperCase();
+
+  return imagenesAlimentos[nombre] || "❓";
+};
 
 
 const JuegoComida = ({ onFinalizar }) => {
@@ -35,6 +63,44 @@ useEffect(() => {
   const [mensaje, setMensaje] = useState("");
   const [respondido, setRespondido] = useState(false);
   const [terminado, setTerminado] = useState(false);
+
+   
+const obtenerPregunta = (nombreAnimal) => {
+  const nombre = nombreAnimal.toLowerCase().trim();
+
+  const animalesFemeninos = [
+    "vaca",
+    "gallina",
+    "oveja",
+    "cabra",
+    "yegua"
+  ];
+
+  const articulo = animalesFemeninos.includes(nombre)
+    ? "la"
+    : "el";
+
+  return `¿Qué come ${articulo} ${nombre}?`;
+};
+
+  
+
+  const leerPregunta = (texto) => {
+  if (!("speechSynthesis" in window)) {
+    alert("Este navegador no permite reproducir voz.");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const mensaje = new SpeechSynthesisUtterance(texto);
+
+  mensaje.lang = "es-AR";
+  mensaje.rate = 0.85;
+  mensaje.pitch = 1;
+
+  window.speechSynthesis.speak(mensaje);
+};
 
   // Función para comprobar la respuesta
   const comprobarRespuesta = (opcion) => {
@@ -123,14 +189,13 @@ if (error || animales.length === 0) {
   const animal = animales[rondaActual];
 
   return (
-
-    <div className="container mt-4">
+  <div className="juego-comida container py-4">
 
       <div className="card shadow text-center p-4">
 
         <h2 className="mb-3">
-          ¡Hora de Comer! 🐾
-        </h2>
+          🍎 ¡A COMER!
+               </h2>
 
         <h5 className="text-muted">
           Ronda {rondaActual + 1} de 5
@@ -138,18 +203,33 @@ if (error || animales.length === 0) {
 
         <div className="my-4">
 
-          <div style={{ fontSize: "100px" }}>
+          <div className="animal-emoji">
             {animal.imagen}
-          </div>
+                   </div>
 
           <h3>{animal.animal}</h3>
 
-          <p className="lead">
-            ¿Qué come este animal?
-          </p>
+        
+          
+             <p className="lead">
+                { obtenerPregunta(animal.animal).toUpperCase()}
+                        </p>
+
+
+   
+         
+<button
+  type="button"
+  className="btn btn-warning btn-lg mt-3"
+  onClick={() => leerPregunta(obtenerPregunta(animal.animal))}
+  aria-label="Escuchar la pregunta"
+>
+  🔊 Escuchar pregunta
+</button>
+
 
         </div>
-
+            
         <div className="d-grid gap-3">
 
           {animal.opciones.map((opcion, indice) => (
@@ -160,7 +240,10 @@ if (error || animales.length === 0) {
               onClick={() => comprobarRespuesta(opcion)}
               disabled={respondido}
             >
-              {opcion}
+              <span className="me-2" aria-hidden="true">
+                         {obtenerImagenAlimento(opcion)}
+                 </span>
+                        <span>{opcion.toUpperCase()}</span>
             </button>
 
           ))}

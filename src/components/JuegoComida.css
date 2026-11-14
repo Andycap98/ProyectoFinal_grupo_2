@@ -1,0 +1,82 @@
+.juego-comida {
+  font-family: "Fredoka", Arial, sans-serif;
+}
+
+.juego-comida .card {
+  border-radius: 24px;
+  border: 3px solid #d8e7c5;
+  background-color: #fffef8;
+}
+
+.juego-comida h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2f5d34;
+}
+
+.juego-comida h5 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #5b6f57;
+}
+
+.juego-comida h3 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #3f3a2d;
+}
+
+.juego-comida .lead {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #5a4d3c;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.juego-comida button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-radius: 18px;
+  padding: 14px 20px;
+  min-height: 72px;
+}
+
+.juego-comida .alert {
+  font-size: 1.4rem;
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.juego-comida h4 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2f5d34;
+}
+
+.juego-comida .animal-emoji {
+  font-size: 120px;
+}
+
+@media (max-width: 768px) {
+  .juego-comida h2 {
+    font-size: 1.8rem;
+  }
+
+  .juego-comida h3 {
+    font-size: 2rem;
+  }
+
+  .juego-comida .lead {
+    font-size: 1.3rem;
+  }
+
+  .juego-comida button.btn {
+    font-size: 1.3rem;
+    min-height: 64px;
+  }
+
+  .juego-comida h4 {
+    font-size: 1.6rem;
+  }
+}
