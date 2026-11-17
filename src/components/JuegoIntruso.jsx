@@ -1,34 +1,21 @@
-import { useState, useEffect, useRef } from "react";
-import { obtenerRondasIntruso } from "../services/juegosService";
+import { useJuegoIntruso } from "../hooks/useJuegoIntruso";
 import "./JuegoIntruso.css";
 
 
 const JuegoIntruso = ({ onFinalizar }) => {
-
-  const [rondas, setRondas] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState("");
-
-  const [ronda, setRonda] = useState(0);
-  const [puntaje, setPuntaje] = useState(0);
-  const [seleccion, setSeleccion] = useState(null);
-  const finalizadoRef = useRef(false);
-
-  useEffect(() => {
-    const cargarRondas = async () => {
-      try {
-        const datos = await obtenerRondasIntruso();
-        setRondas(datos);
-      } catch (error) {
-        console.error("Error al cargar las rondas:", error);
-        setError("No se pudieron cargar las rondas.");
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    cargarRondas();
-  }, []);
+const {
+  rondas,
+  cargando,
+  error,
+  ronda,
+  puntaje,
+  rondaActual,
+  respondida,
+  acerto,
+  esUltimaRonda,
+  handleSeleccionar,
+  handleSiguiente,
+} = useJuegoIntruso(onFinalizar);
 
   if (cargando) {
     return (
@@ -48,34 +35,8 @@ const JuegoIntruso = ({ onFinalizar }) => {
     );
   }
 
-  const rondaActual = rondas[ronda];
-  const respondida = seleccion !== null;
-  const acerto = seleccion === rondaActual.intruso;
-  const esUltimaRonda = ronda === rondas.length - 1;
 
-  const handleSeleccionar = (nombre) => {
-    if (respondida) return; // ya respondió: no se puede cambiar la respuesta
 
-    setSeleccion(nombre);
-    if (nombre === rondaActual.intruso) {
-      setPuntaje(puntaje + 10);
-    }
-  };
-
-const handleSiguiente = () => {
-  if (finalizadoRef.current) return;
-
-  if (esUltimaRonda) {
-    finalizadoRef.current = true;
-    onFinalizar(puntaje);
-    return;
-  }
-
-  setRonda(ronda + 1);
-  setSeleccion(null);
-};
-
-  // Una vez respondida la ronda, el intruso se pinta de rojo y los demás de verde
   const claseCirculo = (nombre) => {
     if (!respondida) return "circulo-animal";
     return nombre === rondaActual.intruso
@@ -132,6 +93,6 @@ const handleSiguiente = () => {
     </div>
  
   );
-};
 
+};
 export default JuegoIntruso;
