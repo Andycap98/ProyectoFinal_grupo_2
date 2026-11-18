@@ -1,26 +1,24 @@
-import { useState, useEffect } from "react";
-import { obtenerAnimalesComida } from "../services/juegosService";
+
+import { useJuegoComida } from "../hooks/useJuegoComida";
 import "./JuegoComida.css";
 
-
-
 const imagenesAlimentos = {
-  "PASTO": "🌱",
-  "CARNE": "🥩",
-  "BANANA": "🍌",
-  "ZANAHORIA": "🥕",
-  "MAÍZ": "🌽",
-  "MANZANA": "🍎",
-  "PESCADO": "🐟",
-  "SEMILLAS": "🌻",
+  PASTO: "🌱",
+  CARNE: "🥩",
+  BANANA: "🍌",
+  ZANAHORIA: "🥕",
+  MAÍZ: "🌽",
+  MANZANA: "🍎",
+  PESCADO: "🐟",
+  SEMILLAS: "🌻",
   "TODO LO QUE ENCUENTRA": "🍎🥕🌽",
   "SOLO PASTO": "🌱",
   "SOLO CARNE": "🥩",
   "PASTO Y ZANAHORIA": "🌱🥕",
-   "POLLO": "🍗",
-   "HELADO": "🍦",
-   "PIZZA": "🍕",
-  "HAMBURGUESA": "🍔",
+  POLLO: "🍗",
+  HELADO: "🍦",
+  PIZZA: "🍕",
+  HAMBURGUESA: "🍔",
 };
 
 const obtenerImagenAlimento = (alimento) => {
@@ -29,42 +27,6 @@ const obtenerImagenAlimento = (alimento) => {
   return imagenesAlimentos[nombre] || "❓";
 };
 
-
-const JuegoComida = ({ onFinalizar }) => {
-
-  const [animales, setAnimales] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState("");
-
-useEffect(() => {
-  const cargarAnimales = async () => {
-    try {
-      setCargando(true);
-      setError("");
-
-      const datos = await obtenerAnimalesComida();
-      setAnimales(datos);
-
-    } catch (error) {
-      console.error("Error al cargar los animales:", error);
-      setError("No se pudieron cargar los animales.");
-
-    } finally {
-      setCargando(false);
-    }
-  };
-
-  cargarAnimales();
-}, []);
- 
-  // Estados del juego
-  const [rondaActual, setRondaActual] = useState(0);
-  const [puntaje, setPuntaje] = useState(0);
-  const [mensaje, setMensaje] = useState("");
-  const [respondido, setRespondido] = useState(false);
-  const [terminado, setTerminado] = useState(false);
-
-   
 const obtenerPregunta = (nombreAnimal) => {
   const nombre = nombreAnimal.toLowerCase().trim();
 
@@ -73,7 +35,7 @@ const obtenerPregunta = (nombreAnimal) => {
     "gallina",
     "oveja",
     "cabra",
-    "yegua"
+    "yegua",
   ];
 
   const articulo = animalesFemeninos.includes(nombre)
@@ -83,9 +45,7 @@ const obtenerPregunta = (nombreAnimal) => {
   return `¿Qué come ${articulo} ${nombre}?`;
 };
 
-  
-
-  const leerPregunta = (texto) => {
+const leerPregunta = (texto) => {
   if (!("speechSynthesis" in window)) {
     alert("Este navegador no permite reproducir voz.");
     return;
@@ -102,85 +62,50 @@ const obtenerPregunta = (nombreAnimal) => {
   window.speechSynthesis.speak(mensaje);
 };
 
-  // Función para comprobar la respuesta
-  const comprobarRespuesta = (opcion) => {
+const JuegoComida = ({ onFinalizar }) => {
+  const {
+    animales,
+    cargando,
+    error,
+    rondaActual,
+    puntaje,
+    mensaje,
+    respondido,
+    terminado,
+    comprobarRespuesta,
+  } = useJuegoComida(onFinalizar);
 
-    // Evita responder más de una vez por ronda
-    if (respondido) return;
+  // Mientras Axios carga los animales
+  if (cargando) {
+    return (
+      <div className="container text-center mt-5">
+        <h2>🐮 Cargando animales...</h2>
+        <p>¡Estamos preparando la comida de la granja!</p>
+      </div>
+    );
+  }
 
-    setRespondido(true);
+  // Si ocurre un error o no se reciben animales
+  if (error || animales.length === 0) {
+    return (
+      <div className="container text-center mt-5">
+        <h2>⚠️ No pudimos iniciar el juego</h2>
+        <p>{error || "No hay animales disponibles."}</p>
+      </div>
+    );
+  }
 
-    let nuevoPuntaje = puntaje;
-
-    if (opcion === animales[rondaActual].correcta) {
-
-      nuevoPuntaje = puntaje + 10;
-
-      setPuntaje(nuevoPuntaje);
-
-      setMensaje("¡Correcto! " + animales[rondaActual].animal + " comió. 🎉");
-
-    } else {
-
-      setMensaje("¡Esa no es su comida! Intentá con el próximo animal. ❌");
-
-    }
-
-    // Esperamos un momento y avanzamos
-    setTimeout(() => {
-
-      // Si estamos en la última ronda, termina el juego
-      if (rondaActual === animales.length - 1) {
-
-        setTerminado(true);
-
-        if (onFinalizar) {
-          onFinalizar(nuevoPuntaje);
-        }
-
-      } else {
-
-        setRondaActual(rondaActual + 1);
-        setMensaje("");
-        setRespondido(false);
-
-      }
-
-    }, 1500);
-
-  };
- // Mientras Axios carga los animales
-if (cargando) {
-  return (
-    <div className="container text-center mt-5">
-      <h2>🐮 Cargando animales...</h2>
-      <p>¡Estamos preparando la comida de la granja!</p>
-    </div>
-  );
-}
-
-// Si ocurre un error o no se reciben animales
-if (error || animales.length === 0) {
-  return (
-    <div className="container text-center mt-5">
-      <h2>⚠️ No pudimos iniciar el juego</h2>
-      <p>{error || "No hay animales disponibles."}</p>
-    </div>
-  );
-}
   // Pantalla final
   if (terminado) {
     return (
       <div className="container text-center mt-5">
-
         <h2>¡Juego terminado! 🎉</h2>
 
         <h3 className="mt-4">
-          Tu puntaje fue: {puntaje} / 50
+          Tu puntaje fue: {puntaje} / {animales.length * 10}
         </h3>
 
         <p>¡Gracias por alimentar a los animales!</p>
-
       </div>
     );
   }
@@ -189,83 +114,68 @@ if (error || animales.length === 0) {
   const animal = animales[rondaActual];
 
   return (
-  <div className="juego-comida container py-4">
-
+    <div className="juego-comida container py-4">
       <div className="card shadow text-center p-4">
-
         <h2 className="mb-3">
           🍎 ¡A COMER!
-               </h2>
+        </h2>
 
         <h5 className="text-muted">
-          Ronda {rondaActual + 1} de 5
+          Ronda {rondaActual + 1} de {animales.length}
         </h5>
 
         <div className="my-4">
-
           <div className="animal-emoji">
             {animal.imagen}
-                   </div>
+          </div>
 
           <h3>{animal.animal}</h3>
 
-        
-          
-             <p className="lead">
-                { obtenerPregunta(animal.animal).toUpperCase()}
-                        </p>
+          <p className="lead">
+            {obtenerPregunta(animal.animal).toUpperCase()}
+          </p>
 
-
-   
-         
-<button
-  type="button"
-  className="btn btn-warning btn-lg mt-3"
-  onClick={() => leerPregunta(obtenerPregunta(animal.animal))}
-  aria-label="Escuchar la pregunta"
->
-  🔊 Escuchar pregunta
-</button>
-
-
+          <button
+            type="button"
+            className="btn btn-warning btn-lg mt-3"
+            onClick={() =>
+              leerPregunta(obtenerPregunta(animal.animal))
+            }
+            aria-label="Escuchar la pregunta"
+          >
+            🔊 Escuchar pregunta
+          </button>
         </div>
-            
+
         <div className="d-grid gap-3">
-
           {animal.opciones.map((opcion, indice) => (
-
             <button
               key={indice}
+              type="button"
               className="btn btn-success btn-lg"
               onClick={() => comprobarRespuesta(opcion)}
               disabled={respondido}
             >
               <span className="me-2" aria-hidden="true">
-                         {obtenerImagenAlimento(opcion)}
-                 </span>
-                        <span>{opcion.toUpperCase()}</span>
+                {obtenerImagenAlimento(opcion)}
+              </span>
+
+              <span>{opcion.toUpperCase()}</span>
             </button>
-
           ))}
-
         </div>
 
         {mensaje && (
-
           <div className="alert alert-info mt-4">
             {mensaje}
           </div>
-
         )}
 
         <h4 className="mt-3">
-          Puntaje: {puntaje} / 50
+          Puntaje: {puntaje} / {animales.length * 10}
         </h4>
-
       </div>
-
     </div>
-
   );
 };
 
