@@ -4,12 +4,9 @@ import App from "./App";
 import Login from "./components/Login";
 import DashboardProfesor from "./components/DashboardProfesor";
 import ProtectorRuta from "./components/ProtectorRuta";
-
-import {
-  PantallaJuegoComida,
-  PantallaJuegoIntruso,
-  PantallaResultados,
-} from "./PantallasJuegos";
+import PantallaJuegoComida from "./pages/PantallaJuegoComida";
+import PantallaJuegoIntruso from "./pages/PantallaJuegoIntruso";
+import PantallaResultados from "./pages/PantallaResultados";
 
 const router = createBrowserRouter([
   {
