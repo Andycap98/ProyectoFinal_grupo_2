@@ -44,8 +44,6 @@ const Login = () => {
     }
   };
 
- 
-
 return (
   <main className="login-granja">
     <div className="granja-decoracion" aria-hidden="true">
