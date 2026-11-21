@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import App from "./App";
+import App from "../App";
 
-import PantallaProfesor from "./pages/PantallaProfesor";
-import ProtectorRuta from "./components/ProtectorRuta";
-import PantallaJuegoComida from "./pages/PantallaJuegoComida";
-import PantallaJuegoIntruso from "./pages/PantallaJuegoIntruso";
-import PantallaResultados from "./pages/PantallaResultados";
-import Inicio from "./pages/Inicio";
+import PantallaProfesor from "../pages/PantallaProfesor";
+import ProtectorRuta from "../components/ProtectorRuta";
+import PantallaJuegoComida from "../pages/PantallaJuegoComida";
+import PantallaJuegoIntruso from "../pages/PantallaJuegoIntruso";
+import PantallaResultados from "../pages/PantallaResultados";
+import Inicio from "../pages/Inicio";
 
 const router = createBrowserRouter([
   {
