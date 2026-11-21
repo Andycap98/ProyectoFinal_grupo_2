@@ -18,7 +18,7 @@ const App = () => {
     const puntajeJuego1 = state?.puntajeJuego1;
 
     if (
-      usuario?.rol !== "alumno" ||
+      !["alumno", "profesor"].includes(usuario?.rol) ||
       state?.usuarioId !== usuario.id ||
       !Number.isInteger(puntajeJuego1)
     ) {

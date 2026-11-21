@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
-import Login from "./components/Login";
-import DashboardProfesor from "./components/DashboardProfesor";
+
+import PantallaProfesor from "./pages/PantallaProfesor";
 import ProtectorRuta from "./components/ProtectorRuta";
 import PantallaJuegoComida from "./pages/PantallaJuegoComida";
 import PantallaJuegoIntruso from "./pages/PantallaJuegoIntruso";
 import PantallaResultados from "./pages/PantallaResultados";
+import Inicio from "./pages/Inicio";
 
 const router = createBrowserRouter([
   {
@@ -14,21 +15,21 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <Login />,
-      },
+    index: true,
+      element: <Inicio />,
+         },
       {
         path: "login-alumno",
-        element: <Login />,
-      },
+           element: <Inicio />,
+            },
       {
         path: "login-profesor",
-        element: <Login />,
+        element: <Inicio />,
       },
-      {
+            {
         path: "juego-comida",
         element: (
-          <ProtectorRuta rolRequerido="alumno">
+          <ProtectorRuta>
             <PantallaJuegoComida />
           </ProtectorRuta>
         ),
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: "juego-intruso",
         element: (
-          <ProtectorRuta rolRequerido="alumno">
+          <ProtectorRuta>
             <PantallaJuegoIntruso />
           </ProtectorRuta>
         ),
@@ -44,16 +45,16 @@ const router = createBrowserRouter([
       {
         path: "resultados",
         element: (
-          <ProtectorRuta rolRequerido="alumno">
+          <ProtectorRuta>
             <PantallaResultados />
           </ProtectorRuta>
         ),
       },
-      {
+           {
         path: "profesor",
         element: (
           <ProtectorRuta rolRequerido="profesor">
-            <DashboardProfesor />
+            <PantallaProfesor />
           </ProtectorRuta>
         ),
       },
