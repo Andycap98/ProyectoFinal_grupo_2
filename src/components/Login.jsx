@@ -21,7 +21,11 @@ const Login = () => {
       setError("Ingresá tu correo y contraseña");
       return;
     }
-
+    
+     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.trim())) {
+    setError("Ingresá un correo válido. Por ejemplo, nombre@escuela.com.");
+     return;
+               }
     try {
       const usuarioValidado = await login(user.trim(), password);
 
@@ -57,8 +61,7 @@ return (
       <div className="arbol-papel arbol-derecho"></div>
     </div>
 
-    <form className="login-papel" onSubmit={gestionarLogin}>
-
+   <form className="login-papel" onSubmit={gestionarLogin} noValidate>
       <h1>🐮 Aventura en la Granja</h1>
 
       <p className="login-subtitulo">

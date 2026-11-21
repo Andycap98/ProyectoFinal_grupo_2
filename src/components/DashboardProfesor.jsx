@@ -43,6 +43,15 @@ const DashboardProfesor = () => {
               Desde aquí podrás revisar el progreso de los alumnos en
               <strong> Aventura en la Granja</strong>.
             </p>
+            <h2 className="seccion-titulo mt-4 mb-2">🎮 Rincón de juegos</h2>
+             <button
+               type="button"
+                className="dashboard-btn-jugar"
+                   onClick={() => navigate("/juego-comida")}
+               >
+                         VUELVE A SER UN NIÑO!
+                         
+                   </button>
           </div>
 
           <div className="row g-4 mb-4">
@@ -122,6 +131,7 @@ const DashboardProfesor = () => {
           </section>
 
           <div className="text-center">
+           
             <button
               className="btn btn-danger btn-lg dashboard-btn-salir"
               onClick={handleCerrarSesion}

@@ -214,3 +214,37 @@
     padding: 20px 14px;
   }
 }
+.dashboard-btn-jugar {
+  display: inline-block;
+  margin: 14px 6px 8px;
+  padding: 12px 28px;
+  font-family: "Fredoka", Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff9e8;
+  background: linear-gradient(180deg, #417a47, #2d6037);
+  border: 2px solid #f4dfad;
+  border-radius: 16px;
+  box-shadow: 0 0 0 2px #315736, 0 5px 0 2px #315736;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.dashboard-btn-jugar:hover {
+  transform: translateY(-9px);
+  box-shadow:
+    0 0 0 2px #e470bd,
+    0 7px 0 2px #06e624,
+    0 0 18px 5px rgba(255, 194, 66, 0.65);
+}
+
+.dashboard-btn-jugar:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 2px #315736, 0 2px 0 2px #315736;
+}
+
+.dashboard-btn-jugar:focus-visible {
+  outline: 3px solid #245736;
+  outline-offset: 6px;
+}
